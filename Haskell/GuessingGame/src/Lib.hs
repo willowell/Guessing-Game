@@ -49,7 +49,10 @@ doYouLikeCats = do
 askForNumber :: Int -> IO ()  
 askForNumber answer = do  
 
-    number <- inputInt "Please enter your guess: "  
+    number <- inputInt "Please enter your guess: "
+    
+    putStrLn $ "You guessed: " ++ show number
+    
     case compare number answer of  
         LT -> do
             putStrLn "Too low!"
