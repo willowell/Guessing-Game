@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/guessing_game
+guessing_game.so
+guessing_game.dylib
+guessing_game.dll
+guessing_game.a
+guessing_game.lib
+guessing_game-test-*
+*.exe
+*.o
+*.obj
+*.lst

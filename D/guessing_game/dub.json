@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"William Howell"
+	],
+	"copyright": "Copyright © 2019, William Howell",
+	"description": "Guess the right number in 10 turns or less!",
+	"license": "proprietary",
+	"name": "guessing_game"
+}
