@@ -1,68 +1,58 @@
 import std.datetime;
 import std.random;
 import std.stdio;
-import std.string;     // -> strip
-import std.conv;       //-> to!()
-import std.exception;  //-> The exceptions
-import std.algorithm;
-import std.array;
+
 import optional;
 
-Optional!string readLine() {
-	string line;
-	try {
-		line = stdin.readln();
-	} catch (StdioException e) {
-		// An I/O error has occurred!
-		stderr.writeln(e.msg);
-		return no!string;
-	} catch (Exception e) {
-		// Some other error has occurred!
-		stderr.writeln(e.msg);
-		return no!string;
+import input : input, inputInt, read, promptLine, yesOrNo;
+
+void runGame(int answer, int totalTurns) {
+	int turnsLeft = totalTurns;
+
+	writeln("I'm thinking of a number between 1 and 100! Can you guess which one?");
+
+	while (true) {
+		if (turnsLeft == 0) {
+			writeln("You lose!");
+			break;
+		}
+
+		writeln("You have ", turnsLeft, " turn(s) left.");
+		if (turnsLeft == 1) {
+			writeln("Uh oh! Make it count!!");
+		}
+
+		immutable int guess = inputInt("Please enter your guess: ", (int x) => 1 <= x && x <= 100);
+
+		writeln("You guessed: ", guess);
+
+		if (guess < answer) {
+			writeln("Too low!");
+			turnsLeft--;
+		} else if (guess > answer) {
+			writeln("Too high!");
+			turnsLeft--;
+		} else {
+			writeln("You win!");
+			break;
+		}
 	}
-	return some(line);
-}
-
-Optional!string promptLine(string prompt) {
-	writeln(prompt);
-	stdout.flush();
-	return readLine();
-}
-
-Optional!U convert(U, T)(T arg) {
-	import std.conv: to;
-	scope(failure) return no!U;
-	return some(arg.to!U);
-}
-
-Optional!T read(T)(Optional!string arg) {
-	return arg.match!(
-		(string s) => s.strip.convert!T,
-		() => no!T
-	);
-}
-
-auto input(T)(string prompt, bool delegate(T arg) validator) {
-	T userInput;
-
-	for (
-		userInput = promptLine(prompt).strip().to!T();
-		!validator(userInput);
-		userInput = promptLine(prompt).strip().to!T()
-	) {
-		writeln("Invalid input. Please try again.");
-	}
-
-	return userInput;
 }
 
 void main() {
+	auto now = Clock.currTime(UTC());
+	Random rand = Random(now.second);
 
-	//int x = input!int("Please enter a number in [1, 100]: ", (x) => 1 <= x && x <= 100);
+	int turnLimit = 10;
 
-	Optional!string strx = promptLine("Enter a number: ");
-	Optional!int nx = read!int(strx);
+	while (true) {
+		runGame(uniform(1, 101, rand), turnLimit);
 
-	nx.match!((int x) => writeln("Got: ", x), () => writeln("Sorry, nothing..."));
+		if (yesOrNo("Do you want to play again? (y/n): ")) {
+			writeln("Okay, give me a moment to think of a new number!");
+		} else {
+			writeln("Okay, thank you for playing!");
+			break;
+		}
+	}
 }

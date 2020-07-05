@@ -12,20 +12,25 @@ promptLine msg = do
     hFlush stdout
     getLine
 
-input :: Read a => String -> IO a
-input msg = do
+input :: Read a => String -> (a -> Bool) -> IO a
+input msg validator = do
     str <- promptLine msg
     case (readMaybe :: Read a => String -> Maybe a) str of
-        Just x -> return x
+        Just x -> case validator x of
+            True -> return x
+            False -> do
+                putStrLn "Invalid input."
+                input msg validator
         Nothing -> do
             putStrLn "Invalid input."
-            input msg
+            input msg validator
 
-inputInt :: String -> IO Int
-inputInt msg = (input :: String -> IO Int) msg
 
-inputDouble :: String -> IO Double
-inputDouble msg = (input :: String -> IO Double) msg
+inputInt :: String -> (Int -> Bool) -> IO Int
+inputInt msg validator = (input :: String -> (Int -> Bool) -> IO Int) msg validator
+
+inputDouble :: String -> (Double -> Bool) -> IO Double
+inputDouble msg validator = (input :: String -> (Double -> Bool) -> IO Double) msg validator
 
 yesOrNo :: String -> IO Bool
 yesOrNo prompt = do
@@ -47,7 +52,7 @@ askForNumber answer totalTurns = go totalTurns
                     putStrLn $ "You have " ++ show turnsLeft ++ " turn(s) left.\n" 
                                 ++ (if turnsLeft == 1 then "Uh oh! Make it count!!" else [])
 
-                    number <- inputInt "Please enter your guess: "
+                    number <- inputInt "Please enter your guess: " (\x -> 1 <= x && x <= 100)
                     
                     putStrLn $ "You guessed: " ++ show number
                     
