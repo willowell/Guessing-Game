@@ -6,5 +6,6 @@ import System.Random
 
 main :: IO ()
 main = do
+    let turnLimit = 10
     gen <- getStdGen    
-    run gen
+    runGame gen turnLimit
