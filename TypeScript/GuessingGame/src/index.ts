@@ -1,46 +1,19 @@
-import _ from "lodash";
+import promptsync from 'prompt-sync'
 
-import fetch from "node-fetch";
-import osLocale from 'os-locale';
-import publicIp from "public-ip";
+import _ from "lodash"
 
-
-const getData = async (url: string): Promise<any> => {
-  try {
-    const response = await fetch(url);
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
+const prompt = promptsync({})
 
 async function main() {
-    const getIPURL = (ip: string, fields: string) => (
-        `http://ip-api.com/json/${ip}?fields=${fields}`
-    );
+  console.log("Hello!")
 
-    const fields = "status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,asname,mobile,query"
+  let s = prompt("Give it to me straight: ")
 
-    console.log(
-        _.reduce(_.range(1, 11), (acc, n) => acc + n, 0)
-    );
+  console.log(`"${s}"... I see. Thank you.`)
 
-    const ip = await publicIp.v4();
-    const loc = await osLocale();
+  let s = prompt("Give it to me straight again: ")
 
-    const geoData = await getData(getIPURL(ip, fields));
-
-    const lang = await getData(`https://fourtonfish.com/hellosalut/?lang=${loc.slice(0, 2)}`);
-
-    console.log(geoData);
-
-    if (geoData.country === "Canada") {
-        console.log(`${lang.hello}, person from Canada living in ${geoData.city}, ${geoData.regionName}!`);
-    }
+  console.log(`"${s}"... I see. Thank you.`)
 }
 
-main();
-
+main()

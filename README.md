@@ -34,3 +34,8 @@ I made this implementation with Stack. Simply `cd` into the directory, run `stac
 ##### TypeScript
 To run this version, `cd` into the directory, run `yarn`, and then run `yarn start`.
 This implementation depends on `lodash` and `purify-ts`.
+
+---
+#### Observations
+In the process of writing these implementations, I found:
+* With `optional`, D lands halfway between the C++ and Haskell implementations; the code in the D version looks (unsurprisingly) like the C++ code, but in other places, like `promptLine`, it looks almost like the Haskell code.
