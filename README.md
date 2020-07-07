@@ -39,3 +39,7 @@ This implementation depends on `lodash` and `purify-ts`.
 #### Observations
 In the process of writing these implementations, I found:
 * With `optional`, D lands halfway between the C++ and Haskell implementations; the code in the D version looks (unsurprisingly) like the C++ code, but in other places, like `promptLine`, it looks almost like the Haskell code.
+
+---
+#### Why Not (C, Java, Kotlin, Swift, etc.)?
+Mostly because I just didn't feel like it.
