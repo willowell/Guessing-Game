@@ -29,6 +29,9 @@ You will need a C++20-enabled compiler and CMake. I made the C++ version using C
 ##### D
 Note that this implementation was made with `DMD64 D Compiler v2.092.1`. You will also need to add `optional` via dub.
 
+##### F#
+Same stuff as for the C# implementation.
+
 ##### Haskell (Reference Implementation)
 This is the reference implementation. The behaviour of this program acts as the specification for the behaviour of the other implementations. 
 I chose the Haskell version as the reference implementation because I am learning Haskell and because the Haskell implementation is by far the *shortest*; it is very easy to refer back to it to see how a particular function should behave in the other languages. The type signatures on the Haskell functions also act as a nice sanity check. For instance, I used the `promptLine` function in the Haskell implementation to check the behaviour of the `promptLine` function in the D implementation.
