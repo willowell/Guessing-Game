@@ -20,6 +20,9 @@ Each time the player guesses a number, the program tells the player if the numbe
 
 ---
 #### Notes on the Separate Implementations
+##### C#
+Note that I made this implementation with Visual Studio for Mac using the dotnet CLI tool. The .NET Core version is 3.1.301. I did not use any NuGet packages.
+
 ##### C++
 You will need a C++20-enabled compiler and CMake. I made the C++ version using CLion, but since there are only four files and no external dependencies, you should have no trouble compiling it on just the command line.
 
@@ -39,6 +42,7 @@ This implementation depends on `lodash` and `purify-ts`.
 #### Observations
 In the process of writing these implementations, I found:
 * With `optional`, D lands halfway between the C++ and Haskell implementations; the code in the D version looks (unsurprisingly) like the C++ code, but in other places, like `promptLine`, it looks almost like the Haskell code.
+* I found the C# implementation to be quite gnarly to make! I had trouble figuring out how to make a polymorphic `read`/`input` function because I didn't know enough about how C# handles generic programming and reflection. I figure that a better answer will involve reflection and/or constraining the type on `IConvertible`, but I need to research this.
 
 ---
 #### Why Not (C, Java, Kotlin, Swift, etc.)?
