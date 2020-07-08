@@ -43,7 +43,16 @@ namespace GuessingGame {
 
 			const int turnLimit = 10;
 
-			runGame(rnd.Next(1, 101), turnLimit);
+			while (true) {
+				runGame(rnd.Next(1, 101), turnLimit);
+
+				if (YesOrNo("Do you want to play again? (y/n): ")) {
+					Console.WriteLine("Okay, give me a moment to think of a new number!");
+				} else {
+					Console.WriteLine("Okay, thank you for playing!");
+					break;
+				}
+			}
 		}
 	}
 }

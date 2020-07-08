@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using Maybe;
 
@@ -45,10 +46,31 @@ namespace IO {
 			return userInput.GetOrDefault(0);
 		}
 
-		public static bool YesOrNo(string prompt) {
-			char answer = 'Y';
+		public static string InputString(string prompt, Func<string, bool> validator) {
+			bool validate(Maybe<string> mx) => mx.Match(
+				x => validator(x),
+				() => false
+			);
 
-			return answer == 'Y';
+			Maybe<string> userInput;
+
+			for (
+				userInput = PromptLine(prompt);
+				!validate(userInput);
+				userInput = PromptLine(prompt)
+			) {
+				Console.WriteLine("Invalid input. Please try again.");
+			}
+
+			return userInput.GetOrDefault(string.Empty);
+		}
+
+		public static bool YesOrNo(string prompt) {
+			string[] answers = { "yes", "y", "no", "n" };
+
+			var userInput = InputString(prompt, str => answers.Any(i => i.Equals(str)));
+
+			return userInput == "yes" || userInput == "y";
 		}
 	}
 }
