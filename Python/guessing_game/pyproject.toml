@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "guessing_game"
+version = "0.1.0"
+description = ""
+authors = ["William Howell <wlm.howell@gmail.com>"]
+
+[tool.poetry.scripts]
+guessing-game = "guessing_game:main"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^4.6"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
