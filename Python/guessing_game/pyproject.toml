@@ -5,10 +5,11 @@ description = ""
 authors = ["William Howell <wlm.howell@gmail.com>"]
 
 [tool.poetry.scripts]
-guessing-game = "guessing_game:main"
+start = "main:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pylint = "^2.5.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.6"

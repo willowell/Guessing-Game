@@ -1,0 +1,7 @@
+# ignore VS Code settings
+.vscode/
+
+# ignore output from poetry build
+dist/
+__pycache__/
+*.pyc

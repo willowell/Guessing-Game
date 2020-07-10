@@ -2,9 +2,12 @@ extern crate rand;
 
 use std::io;
 use std::cmp::Ordering;
+
+use exitfailure::ExitFailure;
+use failure::ResultExt;
 use rand::Rng;
 
-fn main() {
+fn main() -> Result<(), ExitFailure> {
 
     let secret_number = rand::thread_rng().gen_range(1, 101);
 
@@ -16,12 +19,12 @@ fn main() {
         let mut guess = String::new();
 
         io::stdin().read_line(&mut guess)
-            .expect("Failed to read line :-(");
+            .with_context(|_| format!("Unable to read line! :-("))?;
 
-        let guess: u32 = match guess.trim().parse::<u32>() {
+        let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
             Err(_) => {
-                println!("Please enter a number!");
+                println!("Please enter a number! {}", guess);
                 continue;
             },
         };
@@ -37,4 +40,5 @@ fn main() {
             }
         }
     }
+    Ok(())
 }
