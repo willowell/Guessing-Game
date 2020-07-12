@@ -1,27 +1,6 @@
-extern crate promptly;
-extern crate rand;
-
 use std::cmp::Ordering;
 
-use promptly::prompt;
 use rand::distributions::{Distribution, Uniform};
-
-
-
-fn input_u32<F>(msg: &str, validator: F) -> u32
-where
-    F: Fn(u32) -> bool,
-{
-    loop {
-        let x = prompt::<u32, &str>(msg).unwrap();
-
-        if validator(x) {
-            break x;
-        } else {
-            println!("Invalid input. Please try again.");
-        }
-    }
-}
 
 fn run_game(answer: u32, total_turns: u32) {
     let mut turns_left = total_turns;
@@ -39,7 +18,7 @@ fn run_game(answer: u32, total_turns: u32) {
             println!("Uh oh! Make it count!!");
         }
 
-        let guess: u32 = input_u32("Please enter your guess", |x| 1 <= x && x <= 100);
+        let guess: u32 = input("Please enter your guess", |x| 1 <= x && x <= 100);
 
         println!("You guessed: {}.", guess);
 
