@@ -12,25 +12,29 @@ promptLine msg = do
     hFlush stdout
     getLine
 
-input :: Read a => String -> (a -> Bool) -> IO a
-input msg validator = do
-    str <- promptLine msg
-    case (readMaybe :: Read a => String -> Maybe a) str of
-        Just x -> case validator x of
-            True -> return x
-            False -> do
-                putStrLn "Invalid input."
-                input msg validator
-        Nothing -> do
+input :: Read a => String -> IO (Maybe a)
+input msg = (Text.Read.readMaybe :: Read a => String -> Maybe a) <$> promptLine msg
+
+prompt :: Read a => String -> (a -> Bool) -> IO a
+prompt msg validator = do
+    res <- input msg
+    case res of
+        Just x -> 
+            if validator x 
+                then return x 
+                else repeat
+        Nothing -> repeat
+    where 
+        repeat = do
             putStrLn "Invalid input."
-            input msg validator
+            prompt msg validator
 
 
-inputInt :: String -> (Int -> Bool) -> IO Int
-inputInt msg validator = (input :: String -> (Int -> Bool) -> IO Int) msg validator
+promptInt :: String -> (Int -> Bool) -> IO Int
+promptInt msg validator = (prompt :: String -> (Int -> Bool) -> IO Int) msg validator
 
-inputDouble :: String -> (Double -> Bool) -> IO Double
-inputDouble msg validator = (input :: String -> (Double -> Bool) -> IO Double) msg validator
+promptDouble :: String -> (Double -> Bool) -> IO Double
+promptDouble msg validator = (prompt :: String -> (Double -> Bool) -> IO Double) msg validator
 
 yesOrNo :: String -> IO Bool
 yesOrNo prompt = do
@@ -52,7 +56,7 @@ askForNumber answer totalTurns = go totalTurns
                     putStrLn $ "You have " ++ show turnsLeft ++ " turn(s) left.\n" 
                                 ++ (if turnsLeft == 1 then "Uh oh! Make it count!!" else [])
 
-                    number <- inputInt "Please enter your guess: " (\x -> 1 <= x && x <= 100)
+                    number <- promptInt "Please enter your guess: " (\x -> 1 <= x && x <= 100)
                     
                     putStrLn $ "You guessed: " ++ show number
                     
