@@ -45,6 +45,11 @@ If you do not have `poetry`, that's okay - you can certainly copy `main.py` and 
 ##### Rust
 To run this implementation, simply [install Rust](https://www.rust-lang.org/), and then `cd` into the directory and run `cargo build`. Cargo will take care of the dependencies for you. Once `cargo build` is done, just run `cargo run` when you are ready. :-) 
 
+##### Swift
+To run this implementation, [install Swift](https://swift.org/) for your OS, and then `cd` into the directory and run `swift build`. The Swift Package Manager will take care of the dependencies for you. Once `swift build` is done, just run `swift run` when you are ready. :-)
+⚠️ WARNING: I have not tested this version on Linux or on Windows; this implementation may not work on those operating systems. ⚠️
+(For what it's worth, you wouldn't be missing much here; it's very close to the Rust implementation but lacks some niceties from Rust like `match` expressions)
+
 ##### TypeScript
 To run this implementation, you will need Node 14.4.0 or above and yarn 1.22.4 or above.
 Then `cd` into the directory, run `yarn`, and then run `yarn start`.
@@ -56,8 +61,8 @@ In the process of writing these implementations, I found:
 * With `optional`, D lands halfway between the C++ and Haskell implementations; the code in the D version looks (unsurprisingly) like the C++ code, but in other places, like `promptLine`, it looks almost like the Haskell code.
 * I found the C# implementation to be quite gnarly to make! I had trouble figuring out how to make a polymorphic `read`/`input` function because I didn't know enough about how C# handles generic programming and reflection. I figure that a better answer will involve reflection and/or constraining the type on `IConvertible`, but I need to research this.
 * I finally discovered the nightmare that is dealing with project-level dependencies in Python! I also had to do some plumbing on my Mac - it turns out I had several versions of Python in different places from installing stuff with Homebrew, Anaconda, and installing Python itself through the website! The Python implementation is pretty straightforward since Python already has an `input` function. I didn't feel like introducing a `Maybe` monad to the Python version.
-* 
+* I found the Swift version to be a clunkier Rust, oddly enough. The "Enumeration Case Pattern" for `switch` statements in Swift *feels* like `match`, but `switch` is not an expression in Swift. There is a way to get around this with an anonymous closure ([see here](http://austinzheng.com/2014/12/16/swift-pattern-matching-switch/)), but I was not aware of this when I made the Swift implementation.
 
 ---
-#### Why Not (C, Java, Kotlin, Swift, etc.)?
+#### Why Not (C, Java, Kotlin, etc.)?
 Mostly because I just didn't feel like it.
