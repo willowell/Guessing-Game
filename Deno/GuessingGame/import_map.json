@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "ask": "https://deno.land/x/ask/mod.ts",
+    "ink": "https://deno.land/x/ink/mod.ts",
+    "random": "https://deno.land/x/random/Random.js"
+  }
+}

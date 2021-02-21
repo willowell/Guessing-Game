@@ -1,0 +1,2 @@
+# Never track environment variables
+.env
