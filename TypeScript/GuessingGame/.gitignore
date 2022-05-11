@@ -40,6 +40,9 @@ build/Release
 # tsc output
 build/
 
+# pkg / compiler outputs
+bin/
+
 # Dependency directories
 node_modules/
 jspm_packages/

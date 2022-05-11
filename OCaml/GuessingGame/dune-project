@@ -1,0 +1,22 @@
+(lang dune 3.1)
+
+(name GuessingGame)
+
+(generate_opam_files true)
+
+(source
+ (github willowell/GuessingGame))
+
+(authors "William Howell")
+
+(maintainers "wlm.howell@gmail.com")
+
+(license MIT)
+
+(package
+ (name GuessingGame)
+ (synopsis "Number Guessing Game")
+ (description "Number Guessing Game written in OCaml")
+ (depends ocaml dune core stdio))
+
+; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project

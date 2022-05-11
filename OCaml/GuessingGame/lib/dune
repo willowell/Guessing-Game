@@ -1,0 +1,15 @@
+(include_subdirs unqualified)
+
+(library
+ (name Lib)
+ (libraries core stdio)
+ (modules lib monoid functor applicative monad combinators read input)
+ (preprocess
+  (pps ppx_jane)))
+
+(env
+ (dev
+  (flags
+   (:standard -w -20 -w -27 -w -32 -w -34 -w -37 -w -39)))
+ (release
+  (flags (:standard))))
